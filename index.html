@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danny Klinenberg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1c1917;
+      --paper: #faf8f5;
+      --warm-gray: #f0ece6;
+      --accent: #2d6b4f;
+      --accent-hover: #1e4d38;
+      --muted: #78716c;
+      --rule: #ddd6cc;
+      --card-bg: #ffffff;
+      --shadow: 0 1px 3px rgba(28,25,23,0.06), 0 4px 12px rgba(28,25,23,0.04);
+      --max-w: 860px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 72px;
+      font-size: 16.5px;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.75;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════
+       NAVIGATION
+       ════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem;
+    }
+
+    nav .nav-inner {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav .brand {
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 26px;
+      height: 18px;
+      position: relative;
+      z-index: 110;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--ink);
+      position: absolute;
+      left: 0;
+      transition: all 0.3s;
+    }
+
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 8px; }
+    .hamburger span:nth-child(3) { top: 16px; }
+
+    /* ════════════════════════════════
+       HERO
+       ════════════════════════════════ */
+    .hero {
+      margin-top: 64px;
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero-inner {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-photo {
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+      filter: grayscale(10%) contrast(1.03);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: -12px;
+      bottom: -12px;
+      border: 2px solid var(--accent);
+      border-radius: 6px;
+      z-index: -1;
+      opacity: 0.35;
+    }
+
+    .hero-text h1 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-text .role {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 1.6rem;
+      line-height: 1.5;
+    }
+
+    .hero-text .bio {
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 560px;
+    }
+
+    .hero-text .bio p + p { margin-top: 0.9rem; }
+
+    .hero-links {
+      margin-top: 1.8rem;
+      display: flex;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-links a {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--rule);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .hero-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .hero-links a svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════
+       SECTIONS
+       ════════════════════════════════ */
+    section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    section + section {
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ════════════════════════════════
+       RESEARCH ENTRIES
+       ════════════════════════════════ */
+    .research-group + .research-group {
+      margin-top: 3rem;
+    }
+
+    .research-group-heading {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .paper {
+      margin-bottom: 2rem;
+      padding: 1.4rem 1.6rem;
+      background: var(--card-bg);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      border-left: 3px solid transparent;
+      transition: border-color 0.25s;
+    }
+
+    .paper:hover {
+      border-left-color: var(--accent);
+    }
+
+    .paper-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 0.3rem;
+    }
+
+    .paper-meta {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      line-height: 1.55;
+    }
+
+    .paper-meta em { font-style: italic; }
+
+    .paper-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .paper-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .paper-links a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .coverage {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .coverage a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      transition: color 0.2s;
+    }
+
+    .coverage a:hover { color: var(--accent); }
+
+    /* Abstract toggle */
+    .abstract-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .abstract-toggle:hover { color: var(--accent-hover); }
+
+    .abstract-toggle .arrow {
+      display: inline-block;
+      transition: transform 0.25s;
+      font-size: 0.7rem;
+    }
+
+    .abstract-toggle.open .arrow {
+      transform: rotate(90deg);
+    }
+
+    .abstract-text {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .abstract-text.open {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 0.7rem;
+    }
+
+    .abstract-text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 1rem 1.2rem;
+      background: var(--warm-gray);
+      border-radius: 4px;
+      border-left: 2px solid var(--rule);
+    }
+
+    /* ════════════════════════════════
+       TEACHING
+       ════════════════════════════════ */
+    .teaching-item {
+      margin-bottom: 2rem;
+    }
+
+    .teaching-item h3 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .teaching-item .dates {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .teaching-item p {
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    .teaching-item p a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .teaching-item p a:hover { text-decoration: underline; }
+
+    .award-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: rgba(45,107,79,0.08);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      margin-top: 0.4rem;
+    }
+
+    /* ════════════════════════════════
+       CV SECTION
+       ════════════════════════════════ */
+    .cv-section {
+      text-align: center;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: white;
+      background: var(--accent);
+      padding: 0.85rem 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(45,107,79,0.18);
+    }
+
+    .cv-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .cv-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .cv-note {
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+       ════════════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ════════════════════════════════
+       FADE-IN ANIMATION
+       ════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-photo.fade-in { animation-delay: 0.1s; }
+    .hero-text.fade-in { animation-delay: 0.25s; }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+       ════════════════════════════════ */
+    @media (max-width: 768px) {
+      html { font-size: 15.5px; }
+
+      nav { padding: 0 1.2rem; }
+
+      .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 260px;
+        height: 100vh;
+        background: var(--paper);
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+      }
+
+      .nav-links.open { right: 0; }
+
+      .hamburger { display: block; }
+
+      .hero { padding: 2.5rem 1.5rem; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 500px;
+      }
+
+      .hero-photo {
+        max-width: 220px;
+        margin: 0 auto;
+      }
+
+      .hero-text { text-align: center; }
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-links { justify-content: center; }
+      .hero-text .bio { max-width: 100%; }
+
+      section { padding: 3.5rem 1.5rem; }
+      .section-title { font-size: 1.6rem; }
+      .paper { padding: 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 { font-size: 1.85rem; }
+      .hero-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#home" class="brand">Danny Klinenberg</a>
+      <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#research">Research</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#cv">CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-photo fade-in">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUAqc9lce2ZfghpSiF_ZplNOUigbf1IPbyktua4QlBolfelv8duZba00RZrL3ZewuqieE5ABDPmjsC9HfPAYCSETHKzA-hbmqWwj4xpak41Y_75De1hvOoLC4HBmxTVmDghlFUl-NP_BpKTRsBk-jPyepZs7FRIrilb-Y-AI9gApKa25wrq3wsd2nO-T7hCbGGYRQz6kvY8uWIL0fDw1iClwOusITh1V9zv9=w1280" alt="Danny Klinenberg" />
+      </div>
+      <div class="hero-text fade-in">
+        <h1>Danny Klinenberg</h1>
+        <div class="role">
+          Operations Research Analyst (Economist), OSD CAPE<br>
+          Nonresident Fellow, UC Institute on Global Conflict &amp; Cooperation
+        </div>
+        <div class="bio">
+          <p>I am an applied microeconomist and econometrician. My research applies and develops causal inference tools to study defense economics, conflict, and the financial incentives of extremism.</p>
+          <p>I received my Ph.D. in economics from the University of California, Santa Barbara in 2023 and was a postdoctoral fellow at UC San Diego's Institute on Global Conflict and Cooperation.</p>
+        </div>
+        <div class="hero-links">
+          <a href="mailto:danny.klinenberg@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
+            Email
+          </a>
+          <a href="https://scholar.google.com/citations?user=0wlIglwAAAAJ&hl=en" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm0-2a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM1 11 12 0l11 11h-5v2h-2v-4l-4-4-4 4v4H6v-2H1Z"/></svg>
+            Google Scholar
+          </a>
+          <a href="https://github.com/dklinenberg2020" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.2 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.nber.org/people/danny_klinenberg" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            NBER
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RESEARCH ═══ -->
+  <section id="research">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Publications &amp; Working Papers</h2>
+
+    <!-- PUBLISHED -->
+    <div class="research-group">
+      <h3 class="research-group-heading">Published Papers</h3>
+
+      <div class="paper">
+        <div class="paper-title">Selling Violent Extremism</div>
+        <div class="paper-meta">
+          <em>Journal of Conflict Resolution</em>, 70(1), 59&ndash;89, 2026
+        </div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1177/00220027251329598" target="_blank" rel="noopener">DOI</a>
+          <a href="https://github.com/dklinenberg2020/selling_violent_extremism" target="_blank" rel="noopener">Replication Files</a>
+        </div>
+        <div class="coverage">
+          Coverage: <a href="https://www.bostonglobe.com/2022/11/09/opinion/social-studies-only-so-much-you-can-worry-about-liberals-college-discounts-oath-keeper-membership/" target="_blank" rel="noopener">Boston Globe</a>,
+          <a href="https://marginalrevolution.com/marginalrevolution/2022/10/model-oath-keepers.html" target="_blank" rel="noopener">Marginal Revolution</a>,
+          <a href="https://en.wikipedia.org/wiki/Oath_Keepers" target="_blank" rel="noopener">Wikipedia</a>,
+          <a href="https://ucigcc.org/blog/armed-standoffs-discounts-and-nascar-why-people-buy-violent-extremism/" target="_blank" rel="noopener">IGCC</a>
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>Why do people join domestic violent extremist organizations? This paper examines an understudied reason: organizational outreach. I study how the inflow of new members to the Oath Keepers, until recently America's largest paramilitary organization, changes when the group's leadership employs three tactics: showcasing their ideological zeal through armed standoffs with the government, membership discounts, and sports sponsorships. Using a variant of the synthetic control method, I find that standoffs increase new memberships by 150 percent, discounts increase new memberships by over 60 percent, and sports sponsorships decrease new memberships. Membership is less responsive in counties with higher income inequality, but more responsive in politically conservative counties.</p>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title">Does Deplatforming Work?</div>
+        <div class="paper-meta">
+          <em>Journal of Conflict Resolution</em>, 68(6), 1199&ndash;1225, 2024
+        </div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1177/00220027231188909" target="_blank" rel="noopener">DOI</a>
+          <a href="https://esoc.princeton.edu/WP31" target="_blank" rel="noopener">ESOC Working Paper</a>
+          <a href="https://1drv.ms/f/s!Aof5DgBrB3sNloUa1CtjmyFRkrbIfw?e=jn3Eg9" target="_blank" rel="noopener">Replication Files</a>
+        </div>
+        <div class="coverage">
+          Coverage: <a href="https://forward.com/fast-forward/536757/anti-defamation-league-deplatforming-extremist-websites-report/" target="_blank" rel="noopener">The Forward</a>
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>Social media has become an outlet for extremists to fundraise and organize. While governments deliberate on how to regulate, some social media companies have removed creators of offensive content&mdash;deplatforming. I estimate the effects of deplatforming on revenue and viewership, using variation in the timing of removals across two video-streaming companies&mdash;YouTube, and its far-right competitor, Bitchute. Being deplatformed on YouTube results in a 30% increase in weekly Bitcoin revenue and a 50% increase in viewership on Bitchute. This increase in Bitchute activity is less than that on YouTube, meaning that deplatforming works in decreasing a content creator's overall views and revenue.</p>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title">Synthetic Control with Time Varying Coefficients: A State Space Approach with Bayesian Shrinkage</div>
+        <div class="paper-meta">
+          <em>Journal of Business &amp; Economic Statistics</em>, 41(4), 1065&ndash;1076, 2023
+        </div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1080/07350015.2022.2102025" target="_blank" rel="noopener">DOI</a>
+          <a href="https://github.com/dklinenberg2020/Time-Varying-Parameter-Bayesian-Lasso" target="_blank" rel="noopener">Replication Files</a>
+        </div>
+        <div class="coverage">
+          UCSB Outstanding Second-Year Paper, 2020
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>Synthetic control methods are a popular tool for measuring the effects of policy interventions on a single treated unit. In practice, researchers create a counterfactual using a linear combination of untreated units that closely mimic the treated unit. Oftentimes, creating a synthetic control is not possible due to untreated units' dynamic characteristics such as integrated processes or a time varying relationship. In this article, I investigate a new approach to estimate the synthetic control counterfactual incorporating time varying parameters to handle such situations. This is done using a state space framework and Bayesian shrinkage. The dynamics allow for a closer pretreatment fit leading to a more accurate counterfactual estimate.</p>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title">Covid, Colleges, and Classes</div>
+        <div class="paper-meta">
+          with Richard Startz &middot; <em>Applied Economics</em>, 55(5), 2022
+        </div>
+        <div class="paper-links">
+          <a href="https://doi.org/10.1080/00036846.2022.2091110" target="_blank" rel="noopener">DOI</a>
+        </div>
+        <div class="coverage">
+          Coverage: <a href="https://www.brookings.edu/articles/financial-political-motives-explain-colleges-covid-19-reopening-decisions/" target="_blank" rel="noopener">Brookings Institution</a>
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>At the start of the 2020 school year, some colleges chose to reopen in person while others offered primarily online classes. We find that colleges responded to financial and other incentives largely as one might expect. Larger shares of revenue attributed to in-person activities, such as dorms and dining halls, led schools to reopen in person. In general, the share of revenue due to tuition and fees had little association with reopening in-person, which is consistent with the idea that the effect of the mode of reopening on enrolment was ambiguous. However, private schools experiencing financial distress due to tuition and fees were more likely to reopen in-person while public schools were less likely.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKING PAPERS -->
+    <div class="research-group">
+      <h3 class="research-group-heading">Working Papers</h3>
+
+      <div class="paper">
+        <div class="paper-title">Deterrence Through Response Curves: An Empirical Analysis of the Gaza-Israel Conflict</div>
+        <div class="paper-meta">
+          with Eli Berman, Prabin Khadka, and Esteban F. Klor &middot; NBER Working Paper No. 33273, 2024
+        </div>
+        <div class="paper-links">
+          <a href="https://www.nber.org/papers/w33273" target="_blank" rel="noopener">NBER</a>
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>We use response curves in a repeated game to analyze key aspects of mutual deterrence: escalation, de-escalation, incomplete deterrence, and deterrence by denial. In this approach, episodes of violence are due to interacting response curves, which disincentivize opponents from attacking through both deterrence and compellence. Both sides punish attacks to maintain credibility in future episodes, disincentivizing larger attacks and yielding nonviolent lulls. We empirically estimate those curves using detailed incident data from the Israel-Gaza conflict between 2007 and 2017. Our estimates match the dynamics of the raw data: very frequent episodes of low lethality violent exchange. Response curves are stable and exhibit a posture consistent with incomplete deterrence: i.e., episodes de-escalate, but to a violent equilibrium. Israeli missile defense shifts the Gazan response curve to a less aggressive posture, as predicted by theory.</p>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title">Timing is Everything: Estimating Strategic Responses with Observational Data</div>
+        <div class="paper-meta">
+          with Eli Berman, Prabin Khadka, and Esteban F. Klor &middot; <em>Draft available upon request</em>
+        </div>
+        <button class="abstract-toggle" onclick="toggleAbstract(this)">
+          <span class="arrow">&#9654;</span> Abstract
+        </button>
+        <div class="abstract-text">
+          <p>Many applied economic studies aim to estimate strategic behavior through reaction curves. Examples include two-sided conflicts, economic trade wars, and algorithmic pricing between firms. Analysis is usually performed at a pre-specified time interval, such as days, weeks, months, or years, using a Vector Autoregression (VAR). Yet sides may respond within a day to one action, but wait a month after another. If data is recorded in arbitrary time intervals, then the researcher may mistake waiting to act for inaction. We analytically show that VAR analyses do not recover true reaction curves if the timing of reaction is not accurately recorded. We discuss alternative approaches and investigate their usefulness in a Monte Carlo simulation.</p>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title">School Quality as Compensation: Evidence from U.S. Military Assignments and Parental Retention</div>
+        <div class="paper-meta">
+          with Alexander J. Chesney and W. Charter Sevier &middot; <em>Draft coming soon</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TEACHING ═══ -->
+  <section id="teaching">
+    <div class="section-label">Teaching</div>
+    <h2 class="section-title">Teaching Experience</h2>
+
+    <div class="teaching-item">
+      <h3>Econ 145 / 245: Data Wrangling for Economists</h3>
+      <div class="dates">UC Santa Barbara &middot; Spring 2020 &ndash; Fall 2022 (Head TA, 2021)</div>
+      <p>Helped create a new undergraduate and graduate course teaching R-based data wrangling skills. Responsibilities included developing course material, writing homework assignments, and building <a href="https://github.com/datawranglingUCSBecon/autograder_template" target="_blank" rel="noopener">autograder infrastructure</a> for Gradescope. Co-authored <a href="https://michaeltopper1.github.io/data-wrangling-econ-book/" target="_blank" rel="noopener">Data Wrangling for Economists</a>, a textbook of guided exercises (with Michael Topper and Richard Startz). Chapter 8 is used in Cal Poly&ndash;SLO's GSE 570 course.</p>
+      <span class="award-badge">Outstanding Undergraduate TA Award, 2020&ndash;2021</span>
+    </div>
+
+    <div class="teaching-item">
+      <h3>Econ 241B: Econometrics (Ph.D. First-Year Sequence)</h3>
+      <div class="dates">UC Santa Barbara &middot; Winter 2022</div>
+    </div>
+  </section>
+
+  <!-- ═══ CV ═══ -->
+  <section id="cv" class="cv-section" style="border-top: 1px solid var(--rule);">
+    <div class="section-label">Curriculum Vitae</div>
+    <h2 class="section-title">CV</h2>
+    <a class="cv-btn" href="klinenberg_cv.docx" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
+    <p class="cv-note">Last updated April 2026</p>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    &copy; 2026 Danny Klinenberg
+  </footer>
+
+  <script>
+    function toggleAbstract(btn) {
+      btn.classList.toggle('open');
+      btn.nextElementSibling.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+
+    const visObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          visObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.paper, .teaching-item').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      el.style.transitionDelay = `${i * 0.06}s`;
+      visObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
