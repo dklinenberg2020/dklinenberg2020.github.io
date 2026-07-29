@@ -20,10 +20,7 @@ OUTPUT_PATH = ROOT / "citations.json"
 # Site title -> Google Scholar title, for the rare paper whose title on
 # Scholar hasn't caught up with the (possibly renamed) working paper on
 # the site.
-TITLE_ALIASES = {
-    "Timing is Everything: Estimating Strategic Responses with Observational Data":
-        "Estimating Strategic Response in Sequential Data",
-}
+TITLE_ALIASES: dict[str, str] = {}
 
 
 def normalize(title: str) -> str:
