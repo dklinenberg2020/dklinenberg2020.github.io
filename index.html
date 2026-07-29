@@ -440,6 +440,27 @@
       margin-top: 0.4rem;
     }
 
+    .citation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--warm-gray);
+      padding: 0.15rem 0.55rem;
+      border-radius: 3px;
+      margin-left: 0.6rem;
+      text-decoration: none;
+      vertical-align: middle;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .citation-badge:hover {
+      color: var(--accent);
+      background: rgba(45,107,79,0.08);
+    }
+
     /* ════════════════════════════════
        CV SECTION
        ════════════════════════════════ */
@@ -798,6 +819,29 @@
         document.querySelector('.nav-links').classList.remove('open');
       });
     });
+
+    fetch('citations.json')
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(data => {
+        const scholarUrl = data.scholar_profile || 'https://scholar.google.com/citations?user=0wlIglwAAAAJ&hl=en';
+        const citationsByTitle = new Map(data.papers.map(p => [p.title.trim(), p.citations]));
+        document.querySelectorAll('.paper').forEach(paperEl => {
+          const titleEl = paperEl.querySelector('.paper-title');
+          const metaEl = paperEl.querySelector('.paper-meta');
+          if (!titleEl || !metaEl) return;
+          const citations = citationsByTitle.get(titleEl.textContent.trim());
+          if (citations === undefined) return;
+          const badge = document.createElement('a');
+          badge.className = 'citation-badge';
+          badge.href = scholarUrl;
+          badge.target = '_blank';
+          badge.rel = 'noopener';
+          badge.title = 'Citation count from Google Scholar';
+          badge.textContent = `Cited by ${citations}`;
+          metaEl.append(badge);
+        });
+      })
+      .catch(() => {});
 
     const visObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
