@@ -4,39 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Danny Klinenberg</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #1c1917;
-      --paper: #faf8f5;
-      --warm-gray: #f0ece6;
-      --accent: #2d6b4f;
-      --accent-hover: #1e4d38;
-      --muted: #78716c;
-      --rule: #ddd6cc;
-      --card-bg: #ffffff;
-      --shadow: 0 1px 3px rgba(28,25,23,0.06), 0 4px 12px rgba(28,25,23,0.04);
-      --max-w: 860px;
+      --ink: #1d1d1f;
+      --paper: #fbfbfd;
+      --panel: #ffffff;
+      --panel-2: #f5f5f7;
+      --muted: #6e6e73;
+      --rule: #d2d2d7;
+      --accent: #0f7a5c;
+      --accent-hover: #0c5f48;
+      --accent-ink: #ffffff;
+      --accent-tint: rgba(15,122,92,0.10);
+      --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 16px 32px rgba(0,0,0,0.08);
+      --max-w: 980px;
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Code", monospace;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 72px;
-      font-size: 16.5px;
-    }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      color: var(--ink);
+      font-family: var(--sans);
       background: var(--paper);
-      line-height: 1.75;
-      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.6;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
     }
+
+    a { color: inherit; }
+
+    ::selection { background: var(--accent-tint); }
 
     /* ════════════════════════════════
        NAVIGATION
@@ -45,64 +46,48 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(250,248,245,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(251,251,253,0.72);
+      backdrop-filter: blur(24px) saturate(1.6);
+      -webkit-backdrop-filter: blur(24px) saturate(1.6);
       border-bottom: 1px solid var(--rule);
-      height: 64px;
+      height: 56px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 0 2rem;
     }
 
-    nav .nav-inner {
-      max-width: 1100px;
+    .nav-inner {
+      max-width: var(--max-w);
       width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    nav .brand {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--ink);
-      text-decoration: none;
+    .brand {
+      font-size: 0.95rem;
+      font-weight: 600;
       letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--ink);
     }
 
     .nav-links {
       display: flex;
-      gap: 2.2rem;
+      gap: 2rem;
       align-items: center;
     }
 
     .nav-links a {
-      font-size: 0.88rem;
-      font-weight: 400;
+      font-size: 0.84rem;
+      font-weight: 500;
       color: var(--muted);
       text-decoration: none;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      position: relative;
+      transition: color 0.2s ease;
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1.5px;
-      background: var(--accent);
-      transition: width 0.25s ease;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--ink); }
 
     .hamburger {
       display: none;
@@ -119,6 +104,7 @@
       display: block;
       width: 100%;
       height: 2px;
+      border-radius: 2px;
       background: var(--ink);
       position: absolute;
       left: 0;
@@ -133,206 +119,244 @@
        HERO
        ════════════════════════════════ */
     .hero {
-      margin-top: 64px;
-      min-height: calc(100vh - 64px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem 2rem;
-    }
-
-    .hero-inner {
-      max-width: 1000px;
-      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 8.5rem 1.5rem 4.5rem;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 1fr 300px;
       gap: 4rem;
       align-items: center;
     }
 
-    .hero-photo {
-      position: relative;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      border-radius: 6px;
-      filter: grayscale(10%) contrast(1.03);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-photo::before {
-      content: '';
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      right: -12px;
-      bottom: -12px;
-      border: 2px solid var(--accent);
-      border-radius: 6px;
-      z-index: -1;
-      opacity: 0.35;
+    .hero-text .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
     }
 
     .hero-text h1 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      text-wrap: balance;
+      margin-bottom: 1rem;
     }
 
     .hero-text .role {
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--accent);
-      margin-bottom: 1.6rem;
+      font-size: 1.03rem;
+      font-weight: 500;
+      color: var(--muted);
       line-height: 1.5;
+      max-width: 480px;
+      margin-bottom: 1.2rem;
     }
 
     .hero-text .bio {
-      color: var(--muted);
-      font-size: 0.97rem;
-      max-width: 560px;
+      font-size: 1rem;
+      color: var(--ink);
+      opacity: 0.86;
+      max-width: 520px;
     }
 
-    .hero-text .bio p + p { margin-top: 0.9rem; }
+    .hero-text .bio p + p { margin-top: 0.8rem; }
 
     .hero-links {
-      margin-top: 1.8rem;
+      margin-top: 1.7rem;
       display: flex;
-      gap: 1.6rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
 
     .hero-links a {
-      font-size: 0.88rem;
-      font-weight: 400;
-      color: var(--ink);
-      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding-bottom: 2px;
-      border-bottom: 1px solid var(--rule);
-      transition: color 0.2s, border-color 0.2s;
+      gap: 0.45rem;
+      font-size: 0.84rem;
+      font-weight: 500;
+      text-decoration: none;
+      background: var(--panel-2);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
     .hero-links a:hover {
-      color: var(--accent);
       border-color: var(--accent);
+      background: var(--accent-tint);
+      transform: translateY(-1px);
     }
 
-    .hero-links a svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
+    .hero-links a svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    .hero-photo {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 4/5;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ════════════════════════════════
        SECTIONS
        ════════════════════════════════ */
-    section {
+    section.block {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 5rem 2rem;
+      padding: 4.5rem 1.5rem;
     }
 
-    section + section {
-      border-top: 1px solid var(--rule);
+    section.tint {
+      max-width: none;
+      background: var(--panel-2);
     }
 
-    .section-label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
+    section.tint > .block-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem;
+    }
+
+    .section-head { margin-bottom: 2.75rem; }
+
+    .section-head .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 0.5rem;
     }
 
-    .section-title {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 2.5rem;
+    .section-head h2 {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
     }
+
+    .group-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2.5rem 0 1.1rem;
+    }
+
+    .group-label:first-child { margin-top: 0; }
 
     /* ════════════════════════════════
        RESEARCH ENTRIES
        ════════════════════════════════ */
-    .research-group + .research-group {
-      margin-top: 3rem;
-    }
-
-    .research-group-heading {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
     .paper {
-      margin-bottom: 2rem;
-      padding: 1.4rem 1.6rem;
-      background: var(--card-bg);
-      border-radius: 6px;
+      background: var(--panel);
+      border-radius: 20px;
       box-shadow: var(--shadow);
-      border-left: 3px solid transparent;
-      transition: border-color 0.25s;
+      padding: 1.6rem 1.8rem;
+      margin-bottom: 1rem;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
 
-    .paper:hover {
-      border-left-color: var(--accent);
+    .paper:hover { transform: translateY(-3px); }
+
+    .paper-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .paper-title {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.02rem;
-      font-weight: 700;
-      line-height: 1.45;
-      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      max-width: 640px;
     }
 
-    .paper-meta {
-      font-size: 0.88rem;
+    .paper-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      background: var(--accent-tint);
+      border-radius: 999px;
+      padding: 0.28rem 0.65rem;
+      white-space: nowrap;
+    }
+
+    .paper-authors {
+      font-size: 0.86rem;
       color: var(--muted);
-      margin-bottom: 0.5rem;
-      line-height: 1.55;
+      margin-top: 0.5rem;
     }
 
-    .paper-meta em { font-style: italic; }
+    .paper-venue {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+      font-style: italic;
+    }
+
+    .paper-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
 
     .paper-links {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      gap: 1.3rem;
       flex-wrap: wrap;
-      margin-bottom: 0.3rem;
+      margin-top: 0.9rem;
     }
 
     .paper-links a {
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--accent);
       text-decoration: none;
-      transition: color 0.2s;
     }
 
-    .paper-links a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
+    .paper-links a:hover { text-decoration: underline; }
+
+    .citation-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--panel-2);
+      border: 1px solid var(--rule);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-decoration: none !important;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .citation-badge:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-tint);
     }
 
     .coverage {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 0.3rem;
+      margin-top: 0.55rem;
     }
 
     .coverage a {
@@ -344,242 +368,191 @@
 
     .coverage a:hover { color: var(--accent); }
 
-    /* Abstract toggle */
     .abstract-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
       background: none;
       border: none;
-      font-family: 'Outfit', sans-serif;
+      color: var(--muted);
+      font-family: var(--sans);
       font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--accent);
+      font-weight: 600;
       cursor: pointer;
       padding: 0;
-      margin-top: 0.4rem;
       transition: color 0.2s;
     }
 
-    .abstract-toggle:hover { color: var(--accent-hover); }
+    .abstract-toggle:hover { color: var(--ink); }
 
     .abstract-toggle .arrow {
       display: inline-block;
       transition: transform 0.25s;
-      font-size: 0.7rem;
+      font-size: 0.7em;
     }
 
-    .abstract-toggle.open .arrow {
-      transform: rotate(90deg);
-    }
+    .abstract-toggle.open .arrow { transform: rotate(90deg); }
 
     .abstract-text {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.3s ease;
-      opacity: 0;
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16,1,0.3,1);
     }
 
-    .abstract-text.open {
-      max-height: 600px;
-      opacity: 1;
-      margin-top: 0.7rem;
-    }
+    .abstract-text.open { grid-template-rows: 1fr; }
+
+    .abstract-text > div { overflow: hidden; }
 
     .abstract-text p {
       font-size: 0.9rem;
       color: var(--muted);
-      line-height: 1.7;
-      padding: 1rem 1.2rem;
-      background: var(--warm-gray);
-      border-radius: 4px;
-      border-left: 2px solid var(--rule);
+      line-height: 1.65;
+      padding-top: 0.8rem;
+      max-width: 660px;
     }
 
     /* ════════════════════════════════
        TEACHING
        ════════════════════════════════ */
     .teaching-item {
-      margin-bottom: 2rem;
+      padding: 1.6rem 0;
+      border-top: 1px solid var(--rule);
     }
 
+    .teaching-item:first-child { border-top: none; padding-top: 0; }
+
     .teaching-item h3 {
-      font-family: 'Libre Baskerville', serif;
       font-size: 1.02rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .teaching-item .dates {
-      font-size: 0.85rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 0.4rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
     }
 
     .teaching-item p {
-      font-size: 0.93rem;
+      font-size: 0.92rem;
       color: var(--muted);
+      margin-top: 0.7rem;
+      max-width: 680px;
+      line-height: 1.65;
     }
 
     .teaching-item p a {
       color: var(--accent);
       text-decoration: none;
+      font-weight: 500;
     }
 
     .teaching-item p a:hover { text-decoration: underline; }
 
     .award-badge {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: rgba(45,107,79,0.08);
-      padding: 0.2rem 0.6rem;
-      border-radius: 3px;
-      margin-top: 0.4rem;
-    }
-
-    .citation-badge {
       display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--muted);
-      background: var(--warm-gray);
-      padding: 0.15rem 0.55rem;
-      border-radius: 3px;
-      margin-left: 0.6rem;
-      text-decoration: none;
-      vertical-align: middle;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .citation-badge:hover {
+      margin-top: 0.7rem;
+      font-size: 0.76rem;
+      font-weight: 600;
       color: var(--accent);
-      background: rgba(45,107,79,0.08);
+      background: var(--accent-tint);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
     }
 
     /* ════════════════════════════════
-       CV SECTION
+       CV
        ════════════════════════════════ */
-    .cv-section {
-      text-align: center;
-      padding: 4rem 2rem 5rem;
-    }
-
     .cv-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: white;
+      gap: 0.55rem;
       background: var(--accent);
-      padding: 0.85rem 2rem;
-      border-radius: 5px;
+      color: var(--accent-ink);
+      font-size: 0.92rem;
+      font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 2px 8px rgba(45,107,79,0.18);
+      padding: 0.85rem 1.6rem;
+      border-radius: 999px;
+      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .cv-btn:hover {
       background: var(--accent-hover);
-      transform: translateY(-1px);
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 10px 24px var(--accent-tint);
     }
 
-    .cv-btn svg {
-      width: 16px;
-      height: 16px;
-    }
+    .cv-btn svg { width: 16px; height: 16px; }
 
     .cv-note {
-      margin-top: 0.8rem;
       font-size: 0.82rem;
       color: var(--muted);
+      margin-top: 0.9rem;
     }
 
     /* ════════════════════════════════
        FOOTER
        ════════════════════════════════ */
     footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--rule);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3.5rem;
       font-size: 0.8rem;
       color: var(--muted);
     }
 
     /* ════════════════════════════════
-       FADE-IN ANIMATION
+       SCROLL REVEAL
        ════════════════════════════════ */
-    .fade-in {
+    .reveal {
       opacity: 0;
       transform: translateY(18px);
-      animation: fadeUp 0.6s ease forwards;
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
     }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-photo.fade-in { animation-delay: 0.1s; }
-    .hero-text.fade-in { animation-delay: 0.25s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ════════════════════════════════
        RESPONSIVE
        ════════════════════════════════ */
-    @media (max-width: 768px) {
-      html { font-size: 15.5px; }
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 6.5rem;
+        gap: 2rem;
+      }
 
-      nav { padding: 0 1.2rem; }
+      .hero-photo { max-width: 240px; margin: 0 auto; order: -1; }
+      .hero-text { text-align: center; }
+      .hero-text .role, .hero-text .bio { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .hero-links { justify-content: center; }
 
       .nav-links {
         position: fixed;
         top: 0; right: -100%;
         width: 260px;
         height: 100vh;
-        background: var(--paper);
+        background: var(--panel);
+        backdrop-filter: blur(24px);
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
         padding: 2rem;
         transition: right 0.3s ease;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.08);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.08);
       }
 
       .nav-links.open { right: 0; }
 
       .hamburger { display: block; }
 
-      .hero { padding: 2.5rem 1.5rem; }
-
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        max-width: 500px;
-      }
-
-      .hero-photo {
-        max-width: 220px;
-        margin: 0 auto;
-      }
-
-      .hero-text { text-align: center; }
-      .hero-text h1 { font-size: 2.2rem; }
-      .hero-links { justify-content: center; }
-      .hero-text .bio { max-width: 100%; }
-
-      section { padding: 3.5rem 1.5rem; }
-      .section-title { font-size: 1.6rem; }
-      .paper { padding: 1.2rem; }
+      .paper-top { flex-direction: column; gap: 0.6rem; }
     }
 
-    @media (max-width: 480px) {
-      .hero-text h1 { font-size: 1.85rem; }
-      .hero-links { flex-direction: column; align-items: center; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
@@ -603,199 +576,205 @@
 
   <!-- ═══ HERO ═══ -->
   <section class="hero" id="home">
-    <div class="hero-inner">
-      <div class="hero-photo fade-in">
-        <img src="photo.jpg" />
+    <div class="hero-text reveal">
+      <div class="eyebrow">Applied Microeconomics &middot; Conflict &amp; Defense</div>
+      <h1>Danny Klinenberg</h1>
+      <div class="role">
+        Operations Research Analyst (Economist), OSW - CAPE<br>
+        Nonresident Fellow, UC Institute on Global Conflict &amp; Cooperation
       </div>
-      <div class="hero-text fade-in">
-        <h1>Danny Klinenberg</h1>
-        <div class="role">
-          Operations Research Analyst (Economist), OSW - CAPE<br>
-          Nonresident Fellow, UC Institute on Global Conflict &amp; Cooperation
-        </div>
-        <div class="bio">
-          <p>I am an applied microeconomist and econometrician. My research applies and develops causal inference tools to study defense economics, conflict, and the financial incentives of extremism.</p>
-          <p>I received my Ph.D. in economics from the University of California, Santa Barbara in 2023 and was a postdoctoral fellow at UC San Diego's Institute on Global Conflict and Cooperation.</p>
-        </div>
-        <div class="hero-links">
-          <a href="mailto:danny.klinenberg@gmail.com">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
-            Email
-          </a>
-          <a href="https://scholar.google.com/citations?user=0wlIglwAAAAJ&hl=en" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm0-2a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM1 11 12 0l11 11h-5v2h-2v-4l-4-4-4 4v4H6v-2H1Z"/></svg>
-            Google Scholar
-          </a>
-          <a href="https://github.com/dklinenberg2020" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.2 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
-            GitHub
-          </a>
-          <a href="https://www.nber.org/people/danny_klinenberg" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            NBER
-          </a>
-        </div>
+      <div class="bio">
+        <p>I am an applied microeconomist and econometrician. My research applies and develops causal inference tools to study defense economics, conflict, and the financial incentives of extremism.</p>
+        <p>I received my Ph.D. in economics from the University of California, Santa Barbara in 2023 and was a postdoctoral fellow at UC San Diego's Institute on Global Conflict and Cooperation.</p>
       </div>
+      <div class="hero-links">
+        <a href="mailto:danny.klinenberg@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 8 10-8"/></svg>
+          Email
+        </a>
+        <a href="https://scholar.google.com/citations?user=0wlIglwAAAAJ&hl=en" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm0-2a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM1 11 12 0l11 11h-5v2h-2v-4l-4-4-4 4v4H6v-2H1Z"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://github.com/dklinenberg2020" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.9.2 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.4v3.5c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.nber.org/people/danny_klinenberg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          NBER
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo reveal">
+      <img src="photo.jpg" alt="Danny Klinenberg">
     </div>
   </section>
 
   <!-- ═══ RESEARCH ═══ -->
-  <section id="research">
-    <div class="section-label">Research</div>
-    <h2 class="section-title">Publications &amp; Working Papers</h2>
-
-    <!-- PUBLISHED -->
-    <div class="research-group">
-      <h3 class="research-group-heading">Published Papers</h3>
-
-      <div class="paper">
-        <div class="paper-title">Selling Violent Extremism</div>
-        <div class="paper-meta">
-          <em>Journal of Conflict Resolution</em>, 70(1), 59&ndash;89, 2026
-        </div>
-        <div class="paper-links">
-          <a href="https://doi.org/10.1177/00220027251329598" target="_blank" rel="noopener">DOI</a>
-          <a href="https://github.com/dklinenberg2020/selling_violent_extremism" target="_blank" rel="noopener">Replication Files</a>
-        </div>
-        <div class="coverage">
-          Coverage: <a href="https://www.bostonglobe.com/2022/11/09/opinion/social-studies-only-so-much-you-can-worry-about-liberals-college-discounts-oath-keeper-membership/" target="_blank" rel="noopener">Boston Globe</a>,
-          <a href="https://marginalrevolution.com/marginalrevolution/2022/10/model-oath-keepers.html" target="_blank" rel="noopener">Marginal Revolution</a>,
-          <a href="https://en.wikipedia.org/wiki/Oath_Keepers" target="_blank" rel="noopener">Wikipedia</a>,
-          <a href="https://ucigcc.org/blog/armed-standoffs-discounts-and-nascar-why-people-buy-violent-extremism/" target="_blank" rel="noopener">IGCC</a>
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>Why do people join domestic violent extremist organizations? This paper examines an understudied reason: organizational outreach. I study how the inflow of new members to the Oath Keepers, until recently America's largest paramilitary organization, changes when the group's leadership employs three tactics: showcasing their ideological zeal through armed standoffs with the government, membership discounts, and sports sponsorships. Using a variant of the synthetic control method, I find that standoffs increase new memberships by 150 percent, discounts increase new memberships by over 60 percent, and sports sponsorships decrease new memberships. Membership is less responsive in counties with higher income inequality, but more responsive in politically conservative counties.</p>
-        </div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-title">Does Deplatforming Work?</div>
-        <div class="paper-meta">
-          <em>Journal of Conflict Resolution</em>, 68(6), 1199&ndash;1225, 2024
-        </div>
-        <div class="paper-links">
-          <a href="https://doi.org/10.1177/00220027231188909" target="_blank" rel="noopener">DOI</a>
-          <a href="https://esoc.princeton.edu/WP31" target="_blank" rel="noopener">ESOC Working Paper</a>
-          <a href="https://1drv.ms/f/s!Aof5DgBrB3sNloUa1CtjmyFRkrbIfw?e=jn3Eg9" target="_blank" rel="noopener">Replication Files</a>
-        </div>
-        <div class="coverage">
-          Coverage: <a href="https://forward.com/fast-forward/536757/anti-defamation-league-deplatforming-extremist-websites-report/" target="_blank" rel="noopener">The Forward</a>
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>Social media has become an outlet for extremists to fundraise and organize. While governments deliberate on how to regulate, some social media companies have removed creators of offensive content&mdash;deplatforming. I estimate the effects of deplatforming on revenue and viewership, using variation in the timing of removals across two video-streaming companies&mdash;YouTube, and its far-right competitor, Bitchute. Being deplatformed on YouTube results in a 30% increase in weekly Bitcoin revenue and a 50% increase in viewership on Bitchute. This increase in Bitchute activity is less than that on YouTube, meaning that deplatforming works in decreasing a content creator's overall views and revenue.</p>
-        </div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-title">Synthetic Control with Time Varying Coefficients: A State Space Approach with Bayesian Shrinkage</div>
-        <div class="paper-meta">
-          <em>Journal of Business &amp; Economic Statistics</em>, 41(4), 1065&ndash;1076, 2023
-        </div>
-        <div class="paper-links">
-          <a href="https://doi.org/10.1080/07350015.2022.2102025" target="_blank" rel="noopener">DOI</a>
-          <a href="https://github.com/dklinenberg2020/Time-Varying-Parameter-Bayesian-Lasso" target="_blank" rel="noopener">Replication Files</a>
-        </div>
-        <div class="coverage">
-          UCSB Outstanding Second-Year Paper, 2020
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>Synthetic control methods are a popular tool for measuring the effects of policy interventions on a single treated unit. In practice, researchers create a counterfactual using a linear combination of untreated units that closely mimic the treated unit. Oftentimes, creating a synthetic control is not possible due to untreated units' dynamic characteristics such as integrated processes or a time varying relationship. In this article, I investigate a new approach to estimate the synthetic control counterfactual incorporating time varying parameters to handle such situations. This is done using a state space framework and Bayesian shrinkage. The dynamics allow for a closer pretreatment fit leading to a more accurate counterfactual estimate.</p>
-        </div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-title">Covid, Colleges, and Classes</div>
-        <div class="paper-meta">
-          with Richard Startz &middot; <em>Applied Economics</em>, 55(5), 2022
-        </div>
-        <div class="paper-links">
-          <a href="https://doi.org/10.1080/00036846.2022.2091110" target="_blank" rel="noopener">DOI</a>
-        </div>
-        <div class="coverage">
-          Coverage: <a href="https://www.brookings.edu/articles/financial-political-motives-explain-colleges-covid-19-reopening-decisions/" target="_blank" rel="noopener">Brookings Institution</a>
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>At the start of the 2020 school year, some colleges chose to reopen in person while others offered primarily online classes. We find that colleges responded to financial and other incentives largely as one might expect. Larger shares of revenue attributed to in-person activities, such as dorms and dining halls, led schools to reopen in person. In general, the share of revenue due to tuition and fees had little association with reopening in-person, which is consistent with the idea that the effect of the mode of reopening on enrolment was ambiguous. However, private schools experiencing financial distress due to tuition and fees were more likely to reopen in-person while public schools were less likely.</p>
-        </div>
-      </div>
+  <section class="block" id="research">
+    <div class="section-head reveal">
+      <div class="eyebrow">Research</div>
+      <h2>Publications &amp; Working Papers</h2>
     </div>
 
-    <!-- WORKING PAPERS -->
-    <div class="research-group">
-      <h3 class="research-group-heading">Working Papers</h3>
+    <div class="group-label reveal">Published Papers</div>
 
-      <div class="paper">
+    <div class="paper reveal">
+      <div class="paper-top">
+        <div class="paper-title">Selling Violent Extremism</div>
+        <div class="paper-tag">2026</div>
+      </div>
+      <div class="paper-venue">Journal of Conflict Resolution, 70(1), 59&ndash;89</div>
+      <div class="paper-links">
+        <a href="https://doi.org/10.1177/00220027251329598" target="_blank" rel="noopener">DOI</a>
+        <a href="https://github.com/dklinenberg2020/selling_violent_extremism" target="_blank" rel="noopener">Replication Files</a>
+      </div>
+      <div class="coverage">
+        Coverage: <a href="https://www.bostonglobe.com/2022/11/09/opinion/social-studies-only-so-much-you-can-worry-about-liberals-college-discounts-oath-keeper-membership/" target="_blank" rel="noopener">Boston Globe</a>,
+        <a href="https://marginalrevolution.com/marginalrevolution/2022/10/model-oath-keepers.html" target="_blank" rel="noopener">Marginal Revolution</a>,
+        <a href="https://en.wikipedia.org/wiki/Oath_Keepers" target="_blank" rel="noopener">Wikipedia</a>,
+        <a href="https://ucigcc.org/blog/armed-standoffs-discounts-and-nascar-why-people-buy-violent-extremism/" target="_blank" rel="noopener">IGCC</a>
+      </div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>Why do people join domestic violent extremist organizations? This paper examines an understudied reason: organizational outreach. I study how the inflow of new members to the Oath Keepers, until recently America's largest paramilitary organization, changes when the group's leadership employs three tactics: showcasing their ideological zeal through armed standoffs with the government, membership discounts, and sports sponsorships. Using a variant of the synthetic control method, I find that standoffs increase new memberships by 150 percent, discounts increase new memberships by over 60 percent, and sports sponsorships decrease new memberships. Membership is less responsive in counties with higher income inequality, but more responsive in politically conservative counties.</p>
+      </div></div>
+    </div>
+
+    <div class="paper reveal">
+      <div class="paper-top">
+        <div class="paper-title">Does Deplatforming Work?</div>
+        <div class="paper-tag">2024</div>
+      </div>
+      <div class="paper-venue">Journal of Conflict Resolution, 68(6), 1199&ndash;1225</div>
+      <div class="paper-links">
+        <a href="https://doi.org/10.1177/00220027231188909" target="_blank" rel="noopener">DOI</a>
+        <a href="https://esoc.princeton.edu/WP31" target="_blank" rel="noopener">ESOC Working Paper</a>
+        <a href="https://1drv.ms/f/s!Aof5DgBrB3sNloUa1CtjmyFRkrbIfw?e=jn3Eg9" target="_blank" rel="noopener">Replication Files</a>
+      </div>
+      <div class="coverage">
+        Coverage: <a href="https://forward.com/fast-forward/536757/anti-defamation-league-deplatforming-extremist-websites-report/" target="_blank" rel="noopener">The Forward</a>
+      </div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>Social media has become an outlet for extremists to fundraise and organize. While governments deliberate on how to regulate, some social media companies have removed creators of offensive content&mdash;deplatforming. I estimate the effects of deplatforming on revenue and viewership, using variation in the timing of removals across two video-streaming companies&mdash;YouTube, and its far-right competitor, Bitchute. Being deplatformed on YouTube results in a 30% increase in weekly Bitcoin revenue and a 50% increase in viewership on Bitchute. This increase in Bitchute activity is less than that on YouTube, meaning that deplatforming works in decreasing a content creator's overall views and revenue.</p>
+      </div></div>
+    </div>
+
+    <div class="paper reveal">
+      <div class="paper-top">
+        <div class="paper-title">Synthetic Control with Time Varying Coefficients: A State Space Approach with Bayesian Shrinkage</div>
+        <div class="paper-tag">2023</div>
+      </div>
+      <div class="paper-venue">Journal of Business &amp; Economic Statistics, 41(4), 1065&ndash;1076</div>
+      <div class="paper-links">
+        <a href="https://doi.org/10.1080/07350015.2022.2102025" target="_blank" rel="noopener">DOI</a>
+        <a href="https://github.com/dklinenberg2020/Time-Varying-Parameter-Bayesian-Lasso" target="_blank" rel="noopener">Replication Files</a>
+      </div>
+      <div class="coverage">
+        UCSB Outstanding Second-Year Paper, 2020
+      </div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>Synthetic control methods are a popular tool for measuring the effects of policy interventions on a single treated unit. In practice, researchers create a counterfactual using a linear combination of untreated units that closely mimic the treated unit. Oftentimes, creating a synthetic control is not possible due to untreated units' dynamic characteristics such as integrated processes or a time varying relationship. In this article, I investigate a new approach to estimate the synthetic control counterfactual incorporating time varying parameters to handle such situations. This is done using a state space framework and Bayesian shrinkage. The dynamics allow for a closer pretreatment fit leading to a more accurate counterfactual estimate.</p>
+      </div></div>
+    </div>
+
+    <div class="paper reveal">
+      <div class="paper-top">
+        <div class="paper-title">Covid, Colleges, and Classes</div>
+        <div class="paper-tag">2022</div>
+      </div>
+      <div class="paper-authors">with Richard Startz</div>
+      <div class="paper-venue">Applied Economics, 55(5)</div>
+      <div class="paper-links">
+        <a href="https://doi.org/10.1080/00036846.2022.2091110" target="_blank" rel="noopener">DOI</a>
+      </div>
+      <div class="coverage">
+        Coverage: <a href="https://www.brookings.edu/articles/financial-political-motives-explain-colleges-covid-19-reopening-decisions/" target="_blank" rel="noopener">Brookings Institution</a>
+      </div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>At the start of the 2020 school year, some colleges chose to reopen in person while others offered primarily online classes. We find that colleges responded to financial and other incentives largely as one might expect. Larger shares of revenue attributed to in-person activities, such as dorms and dining halls, led schools to reopen in person. In general, the share of revenue due to tuition and fees had little association with reopening in-person, which is consistent with the idea that the effect of the mode of reopening on enrolment was ambiguous. However, private schools experiencing financial distress due to tuition and fees were more likely to reopen in-person while public schools were less likely.</p>
+      </div></div>
+    </div>
+
+    <div class="group-label reveal">Working Papers</div>
+
+    <div class="paper reveal">
+      <div class="paper-top">
         <div class="paper-title">Deterrence Through Response Curves: An Empirical Analysis of the Gaza-Israel Conflict</div>
-        <div class="paper-meta">
-          with Eli Berman, Prabin Khadka, and Esteban F. Klor &middot; NBER Working Paper No. 33273, 2024
-        </div>
-        <div class="paper-links">
-          <a href="https://www.nber.org/papers/w33273" target="_blank" rel="noopener">NBER</a>
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>We use response curves in a repeated game to analyze key aspects of mutual deterrence: escalation, de-escalation, incomplete deterrence, and deterrence by denial. In this approach, episodes of violence are due to interacting response curves, which disincentivize opponents from attacking through both deterrence and compellence. Both sides punish attacks to maintain credibility in future episodes, disincentivizing larger attacks and yielding nonviolent lulls. We empirically estimate those curves using detailed incident data from the Israel-Gaza conflict between 2007 and 2017. Our estimates match the dynamics of the raw data: very frequent episodes of low lethality violent exchange. Response curves are stable and exhibit a posture consistent with incomplete deterrence: i.e., episodes de-escalate, but to a violent equilibrium. Israeli missile defense shifts the Gazan response curve to a less aggressive posture, as predicted by theory.</p>
-        </div>
+        <div class="paper-tag">NBER WP 33273</div>
       </div>
+      <div class="paper-authors">with Eli Berman, Prabin Khadka, and Esteban F. Klor &middot; 2024</div>
+      <div class="paper-links">
+        <a href="https://www.nber.org/papers/w33273" target="_blank" rel="noopener">NBER</a>
+      </div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>We use response curves in a repeated game to analyze key aspects of mutual deterrence: escalation, de-escalation, incomplete deterrence, and deterrence by denial. In this approach, episodes of violence are due to interacting response curves, which disincentivize opponents from attacking through both deterrence and compellence. Both sides punish attacks to maintain credibility in future episodes, disincentivizing larger attacks and yielding nonviolent lulls. We empirically estimate those curves using detailed incident data from the Israel-Gaza conflict between 2007 and 2017. Our estimates match the dynamics of the raw data: very frequent episodes of low lethality violent exchange. Response curves are stable and exhibit a posture consistent with incomplete deterrence: i.e., episodes de-escalate, but to a violent equilibrium. Israeli missile defense shifts the Gazan response curve to a less aggressive posture, as predicted by theory.</p>
+      </div></div>
+    </div>
 
-      <div class="paper">
+    <div class="paper reveal">
+      <div class="paper-top">
         <div class="paper-title">Estimating Strategic Response in Sequential Data</div>
-        <div class="paper-meta">
-          with Eli Berman and Esteban F. Klor &middot; <em>March 2026</em>
-        </div>
-        <div class="paper-links">
-          <a href="papers/estimating-strategic-response.pdf" target="_blank" rel="noopener">Draft (PDF)</a>
-        </div>
-        <div class="coverage">
-          Previously circulated as &ldquo;Timing is Everything: Estimating Strategic Responses with Observational Data&rdquo;
-        </div>
-        <button class="abstract-toggle" onclick="toggleAbstract(this)">
-          <span class="arrow">&#9654;</span> Abstract
-        </button>
-        <div class="abstract-text">
-          <p>Many applied economic studies aim to estimate strategic behavior through reaction curves. Examples include two-sided conflicts, economic trade wars, and algorithmic pricing between firms. Analysis is usually performed at a pre-specified time interval, such as days, weeks, months, or years, using a Vector Autoregression (VAR). Yet sides may respond within a day to one action, but wait a month after another. If data is recorded in arbitrary time intervals, then the researcher may mistake waiting to act for inaction. We analytically show that VAR analyses do not recover true reaction curves if the timing of reaction is not accurately recorded. We discuss alternative approaches and investigate their usefulness in a Monte Carlo simulation.</p>
-        </div>
+        <div class="paper-tag">March 2026</div>
       </div>
+      <div class="paper-authors">with Eli Berman and Esteban F. Klor</div>
+      <div class="paper-links">
+        <a href="papers/estimating-strategic-response.pdf" target="_blank" rel="noopener">Draft (PDF)</a>
+      </div>
+      <div class="paper-note">Previously circulated as &ldquo;Timing is Everything: Estimating Strategic Responses with Observational Data&rdquo;</div>
+      <button class="abstract-toggle" onclick="toggleAbstract(this)">
+        <span class="arrow">&#9654;</span> Abstract
+      </button>
+      <div class="abstract-text"><div>
+        <p>Many applied economic studies aim to estimate strategic behavior through reaction curves. Examples include two-sided conflicts, economic trade wars, and algorithmic pricing between firms. Analysis is usually performed at a pre-specified time interval, such as days, weeks, months, or years, using a Vector Autoregression (VAR). Yet sides may respond within a day to one action, but wait a month after another. If data is recorded in arbitrary time intervals, then the researcher may mistake waiting to act for inaction. We analytically show that VAR analyses do not recover true reaction curves if the timing of reaction is not accurately recorded. We discuss alternative approaches and investigate their usefulness in a Monte Carlo simulation.</p>
+      </div></div>
     </div>
   </section>
 
   <!-- ═══ TEACHING ═══ -->
-  <section id="teaching">
-    <div class="section-label">Teaching</div>
-    <h2 class="section-title">Teaching Experience</h2>
+  <section class="block tint" id="teaching">
+    <div class="block-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">Teaching</div>
+        <h2>Teaching Experience</h2>
+      </div>
 
-    <div class="teaching-item">
-      <h3>Econ 145 / 245: Data Wrangling for Economists</h3>
-      <div class="dates">UC Santa Barbara &middot; Spring 2020 &ndash; Fall 2022 (Head TA, 2021)</div>
-      <p>Helped create a new undergraduate and graduate course teaching R-based data wrangling skills. Responsibilities included developing course material, writing homework assignments, and building <a href="https://github.com/datawranglingUCSBecon/autograder_template" target="_blank" rel="noopener">autograder infrastructure</a> for Gradescope. Co-authored <a href="https://michaeltopper1.github.io/data-wrangling-econ-book/" target="_blank" rel="noopener">Data Wrangling for Economists</a>, a textbook of guided exercises (with Michael Topper and Richard Startz). Chapter 8 is used in Cal Poly&ndash;SLO's GSE 570 course.</p>
-      <span class="award-badge">Outstanding Undergraduate TA Award, 2020&ndash;2021</span>
-    </div>
+      <div class="teaching-item reveal">
+        <h3>Econ 145 / 245: Data Wrangling for Economists</h3>
+        <div class="dates">UC Santa Barbara &middot; Spring 2020 &ndash; Fall 2022 (Head TA, 2021)</div>
+        <p>Helped create a new undergraduate and graduate course teaching R-based data wrangling skills. Responsibilities included developing course material, writing homework assignments, and building <a href="https://github.com/datawranglingUCSBecon/autograder_template" target="_blank" rel="noopener">autograder infrastructure</a> for Gradescope. Co-authored <a href="https://michaeltopper1.github.io/data-wrangling-econ-book/" target="_blank" rel="noopener">Data Wrangling for Economists</a>, a textbook of guided exercises (with Michael Topper and Richard Startz). Chapter 8 is used in Cal Poly&ndash;SLO's GSE 570 course.</p>
+        <span class="award-badge">Outstanding Undergraduate TA Award, 2020&ndash;2021</span>
+      </div>
 
-    <div class="teaching-item">
-      <h3>Econ 241B: Econometrics (Ph.D. First-Year Sequence)</h3>
-      <div class="dates">UC Santa Barbara &middot; Winter 2022</div>
+      <div class="teaching-item reveal">
+        <h3>Econ 241B: Econometrics (Ph.D. First-Year Sequence)</h3>
+        <div class="dates">UC Santa Barbara &middot; Winter 2022</div>
+      </div>
     </div>
   </section>
 
   <!-- ═══ CV ═══ -->
-  <section id="cv" class="cv-section" style="border-top: 1px solid var(--rule);">
-    <div class="section-label">Curriculum Vitae</div>
-    <h2 class="section-title">CV</h2>
-    <a class="cv-btn" href="klinenberg_cv.docx" download>
+  <section class="block" id="cv">
+    <div class="section-head reveal">
+      <div class="eyebrow">Curriculum Vitae</div>
+      <h2>CV</h2>
+    </div>
+    <a class="cv-btn reveal" href="klinenberg_cv.docx" download>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download CV
     </a>
@@ -826,10 +805,15 @@
         const citationsByTitle = new Map(data.papers.map(p => [p.title.trim(), p.citations]));
         document.querySelectorAll('.paper').forEach(paperEl => {
           const titleEl = paperEl.querySelector('.paper-title');
-          const metaEl = paperEl.querySelector('.paper-meta');
-          if (!titleEl || !metaEl) return;
+          if (!titleEl) return;
           const citations = citationsByTitle.get(titleEl.textContent.trim());
           if (citations === undefined) return;
+          let linksEl = paperEl.querySelector('.paper-links');
+          if (!linksEl) {
+            linksEl = document.createElement('div');
+            linksEl.className = 'paper-links';
+            paperEl.appendChild(linksEl);
+          }
           const badge = document.createElement('a');
           badge.className = 'citation-badge';
           badge.href = scholarUrl;
@@ -837,28 +821,21 @@
           badge.rel = 'noopener';
           badge.title = 'Citation count from Google Scholar';
           badge.textContent = `Cited by ${citations}`;
-          metaEl.append(badge);
+          linksEl.append(badge);
         });
       })
       .catch(() => {});
 
-    const visObserver = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          visObserver.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.paper, .teaching-item').forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      el.style.transitionDelay = `${i * 0.06}s`;
-      visObserver.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   </script>
 </body>
 </html>
