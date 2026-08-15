@@ -333,26 +333,6 @@
 
     .paper-links a:hover { text-decoration: underline; }
 
-    .citation-badge {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--muted);
-      background: var(--panel-2);
-      border: 1px solid var(--rule);
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      text-decoration: none !important;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .citation-badge:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-tint);
-    }
-
     .coverage {
       font-size: 0.8rem;
       color: var(--muted);
@@ -797,34 +777,6 @@
         document.querySelector('.nav-links').classList.remove('open');
       });
     });
-
-    fetch('citations.json')
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .then(data => {
-        const scholarUrl = data.scholar_profile || 'https://scholar.google.com/citations?user=0wlIglwAAAAJ&hl=en';
-        const citationsByTitle = new Map(data.papers.map(p => [p.title.trim(), p.citations]));
-        document.querySelectorAll('.paper').forEach(paperEl => {
-          const titleEl = paperEl.querySelector('.paper-title');
-          if (!titleEl) return;
-          const citations = citationsByTitle.get(titleEl.textContent.trim());
-          if (citations === undefined) return;
-          let linksEl = paperEl.querySelector('.paper-links');
-          if (!linksEl) {
-            linksEl = document.createElement('div');
-            linksEl.className = 'paper-links';
-            paperEl.appendChild(linksEl);
-          }
-          const badge = document.createElement('a');
-          badge.className = 'citation-badge';
-          badge.href = scholarUrl;
-          badge.target = '_blank';
-          badge.rel = 'noopener';
-          badge.title = 'Citation count from Google Scholar';
-          badge.textContent = `Cited by ${citations}`;
-          linksEl.append(badge);
-        });
-      })
-      .catch(() => {});
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
